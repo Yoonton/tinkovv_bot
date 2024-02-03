@@ -2,17 +2,19 @@
 {
     public class Cost
     {
+        private List<Expenses> costsExpenses = new List<Expenses>();
+        private List<Income> costsIncome = new List<Income>();
         private struct Expenses
         {
+            private DateTime date;
+            private string category;
+            private int sum;
             public Expenses(DateTime date, string category, int sum)
             {
                 this.date = date;
                 this.category = category;
                 this.sum = sum;
             }
-            private DateTime date;
-            private string category;
-            private int sum;
             public DateTime Date
             {
                 get { return date; }
