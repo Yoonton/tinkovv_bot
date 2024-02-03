@@ -2,9 +2,14 @@
 {
     public class Cost
     {
-        List<Expenses> expenses = new List<Expenses>();
         private struct Expenses
         {
+            public Expenses(DateTime date, string category, int sum)
+            {
+                this.date = date;
+                this.category = category;
+                this.sum = sum;
+            }
             private DateTime date;
             private string category;
             private int sum;
