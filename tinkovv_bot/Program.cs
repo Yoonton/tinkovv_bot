@@ -1,5 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 namespace tinkovv_bot
 {
     internal class Program
@@ -18,29 +20,115 @@ namespace tinkovv_bot
 
         async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
-            var message = update.Message;
-            if(message.Text != null)
+            try
             {
-                if(message.Text.ToLower().Contains("добавить расход"))
+                switch (update.Type)
                 {
-                    await botClient.SendTextMessageAsync(message.Chat.Id, "//добавить расход");
-                    return;
-                }
-                else if(message.Text.ToLower().Contains("добавить доход"))
-                {
-                    await botClient.SendTextMessageAsync(message.Chat.Id, "//добавить доход");
-                    return;
-                }
-                else
-                {
-                    await botClient.SendTextMessageAsync(message.Chat.Id, "Введена неизвестная команда \nКоманды: \nДобавить Доход \nДобавить расход");
-                    return;
+                    case UpdateType.Message:
+                        {
+                            var message = update.Message;
+                            var user = message.From;
+                            Console.WriteLine($"{user.FirstName}    |    {message.Text}");
+                            var chat = message.Chat;
+                            switch (message.Type)
+                            {
+                                case MessageType.Text:
+                                    {
+                                        if (message.Text == "/start")
+                                        {
+                                            await botClient.SendTextMessageAsync(
+                                                chat.Id,
+                                                "Сервис учета личных расходов");
+                                            return;
+                                        }
+
+                                        var inlineKeyboard = new InlineKeyboardMarkup(
+                                            new List<InlineKeyboardButton[]>()
+                                            {
+
+                                        new InlineKeyboardButton[]
+                                        {
+                                            InlineKeyboardButton.WithCallbackData("Добавить доход", "button1"),
+                                            InlineKeyboardButton.WithCallbackData("Добавить расход", "button2"),
+                                        },
+                                        new InlineKeyboardButton[]
+                                        {
+                                            InlineKeyboardButton.WithCallbackData("Вывсти доход", "button3"),
+                                            InlineKeyboardButton.WithCallbackData("Вывести расход", "button4"),
+                                        },
+                                            });
+
+                                        await botClient.SendTextMessageAsync(
+                                            chat.Id,
+                                            "Выберите пункт меню",
+                                            replyMarkup: inlineKeyboard);
+
+                                        return;
+                                    }
+                                default:
+                                    {
+                                        await botClient.SendTextMessageAsync(
+                                            chat.Id,
+                                            "Используйте только текст!");
+                                        return;
+                                    }
+                            }
+                        }
+
+                    case UpdateType.CallbackQuery:
+                        {
+                            var callbackQuery = update.CallbackQuery;
+                            var user = callbackQuery.From;
+                            Console.WriteLine($"{user.FirstName}    |    {callbackQuery.Data}");
+                            var chat = callbackQuery.Message.Chat;
+                            switch (callbackQuery.Data)
+                            {
+                                case "button1":
+                                    {
+                                        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
+                                        await botClient.SendTextMessageAsync(
+                                            chat.Id,
+                                            "!доход!");
+                                        return;
+                                    }
+
+                                case "button2":
+                                    {
+                                        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
+                                        await botClient.SendTextMessageAsync(
+                                            chat.Id,
+                                            "!расход!");
+                                        return;
+                                    }
+
+                                case "button3":
+                                    {
+                                        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
+                                        await botClient.SendTextMessageAsync(
+                                            chat.Id,
+                                            "!вывод дохода!");
+                                        return;
+                                    }
+                                case "button4":
+                                    {
+                                        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
+                                        await botClient.SendTextMessageAsync(
+                                            chat.Id,
+                                            "!вывод расхода"
+                                            );
+                                        return;
+                                    }
+                            }
+
+                            return;
+                        }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                await botClient.SendTextMessageAsync(message.Chat.Id, "Введена неизвестная команда \nКоманды: \nДобавить Доход \nДобавить расход");
+                Console.WriteLine(ex.ToString());
             }
+
         }
     }
 }
