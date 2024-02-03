@@ -46,6 +46,7 @@ namespace tinkovv_bot
                 {
                     case UpdateType.Message:
                         {
+                            Console.WriteLine("aboba 1 case");
                             var message = update.Message;
                             var user = message.From;
                             Console.WriteLine($"{user.FirstName}    |    {message.Text}");
@@ -130,6 +131,7 @@ namespace tinkovv_bot
                                             if (update.Message != null && InputValidator.IsNumeric(update.Message.Text))
                                             {
                                                 //добавление даты пополнения
+                                                // не рабоате!!!!!!1!лорывавшпрфывшпгрфыушпгр на до починить
                                                 currentState[user.Id] = "start";
                                             }
                                             else
@@ -164,20 +166,22 @@ namespace tinkovv_bot
                                             }
                                         }
 
-                                        return;
+                                        break;
                                     }
                                 default:
                                     {
                                         await botClient.SendTextMessageAsync(
                                             chat.Id,
                                             "Используйте только текст!");
-                                        return;
+                                        break;
                                     }
                             }
+                            break;
                         }
 
                     case UpdateType.CallbackQuery:
                         {
+                            Console.WriteLine("aboba case 2");
                             var callbackQuery = update.CallbackQuery;
                             var user = callbackQuery.From;
                             Console.WriteLine($"{user.FirstName}    |    {callbackQuery.Data}");
@@ -239,7 +243,7 @@ namespace tinkovv_bot
                                         break;
                                     }
                             }
-                            return;
+                            break;
                         }
                 }
             }
