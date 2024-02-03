@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "2Q00rPbo1zmsCbMGEJUxu1iwYhyHcma+q3FfQa8EmUxMOGf2uf/T+HIR0qu9wqiDrK+DBNlrr+HVkYpHvmDNhA==",
+  "dgSpecHash": "6xOXFYF/wNbGWOyDpAhcqwgL0S714XDyGWN0YZ0+augaqclejtmh+q8+bUxHb4kaTjlTvKrSZ8s67ijbu0d6pg==",
   "success": true,
   "projectFilePath": "C:\\Users\\mak-s\\OneDrive\\Документы\\tg_bot\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\mak-s\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\mak-s\\.nuget\\packages\\telegram.bot\\19.0.0\\telegram.bot.19.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
