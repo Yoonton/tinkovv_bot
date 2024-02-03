@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tinkovv_bot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a74e39b9634c70a9cffc48e23acbdefd981185f")]
 [assembly: System.Reflection.AssemblyProductAttribute("tinkovv_bot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tinkovv_bot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

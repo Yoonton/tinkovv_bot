@@ -11,6 +11,7 @@ namespace tinkovv_bot
             var client = new TelegramBotClient("6878733229:AAGOk_4FkCvRmDSY1anMdyFSJfaK9FLkOrU");
             client.StartReceiving(Update, Error);
             Console.ReadLine();
+
         }
 
         private static Task Error(ITelegramBotClient client, Exception exception, CancellationToken token)
@@ -39,30 +40,26 @@ namespace tinkovv_bot
                                             await botClient.SendTextMessageAsync(
                                                 chat.Id,
                                                 "Сервис учета личных расходов");
-                                            return;
-                                        }
-
-                                        var inlineKeyboard = new InlineKeyboardMarkup(
+                                            var inlineKeyboard = new InlineKeyboardMarkup(
                                             new List<InlineKeyboardButton[]>()
                                             {
 
-                                        new InlineKeyboardButton[]
-                                        {
-                                            InlineKeyboardButton.WithCallbackData("Добавить доход", "button1"),
-                                            InlineKeyboardButton.WithCallbackData("Добавить расход", "button2"),
-                                        },
-                                        new InlineKeyboardButton[]
-                                        {
-                                            InlineKeyboardButton.WithCallbackData("Вывсти доход", "button3"),
-                                            InlineKeyboardButton.WithCallbackData("Вывести расход", "button4"),
-                                        },
+                                                new InlineKeyboardButton[]
+                                                {
+                                                    InlineKeyboardButton.WithCallbackData("Добавить доход", "button1"),
+                                                    InlineKeyboardButton.WithCallbackData("Добавить расход", "button2"),
+                                                },
+                                                new InlineKeyboardButton[]
+                                                {
+                                                    InlineKeyboardButton.WithCallbackData("Вывсти доход", "button3"),
+                                                    InlineKeyboardButton.WithCallbackData("Вывести расход", "button4"),
+                                                },
                                             });
-
-                                        await botClient.SendTextMessageAsync(
-                                            chat.Id,
-                                            "Выберите пункт меню",
-                                            replyMarkup: inlineKeyboard);
-
+                                            await botClient.SendTextMessageAsync(
+                                                chat.Id,
+                                                "Выберите пункт меню",
+                                                replyMarkup: inlineKeyboard);
+                                        }
                                         return;
                                     }
                                 default:
@@ -86,36 +83,27 @@ namespace tinkovv_bot
                                 case "button1":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(
-                                            chat.Id,
-                                            "!доход!");
+                                        await botClient.SendTextMessageAsync(chat.Id, "!доход!");
                                         return;
                                     }
 
                                 case "button2":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(
-                                            chat.Id,
-                                            "!расход!");
+                                        await botClient.SendTextMessageAsync(chat.Id, "Введите ");
                                         return;
                                     }
 
                                 case "button3":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(
-                                            chat.Id,
-                                            "!вывод дохода!");
+                                        await botClient.SendTextMessageAsync(chat.Id, "!вывод дохода!");
                                         return;
                                     }
                                 case "button4":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(
-                                            chat.Id,
-                                            "!вывод расхода"
-                                            );
+                                        await botClient.SendTextMessageAsync(chat.Id, "!вывод расхода");
                                         return;
                                     }
                             }
