@@ -28,7 +28,6 @@ namespace tinkovv_bot
                 }
 
             }
-            throw new NotImplementedException();
         }
     }
 }
