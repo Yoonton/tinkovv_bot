@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "vDIIejRbY4duN7rsuIzoBeC8y5ewclsk2MXBFxfWH8XOMO0lHy7QhmLumUZ4PbPMV/tk2+ThrB5KXeLY4WAL4w==",
+  "dgSpecHash": "6xOXFYF/wNbGWOyDpAhcqwgL0S714XDyGWN0YZ0+augaqclejtmh+q8+bUxHb4kaTjlTvKrSZ8s67ijbu0d6pg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gachonom\\source\\repos\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj",
+  "projectFilePath": "C:\\Users\\mak-s\\OneDrive\\Документы\\tg_bot\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Gachonom\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\Gachonom\\.nuget\\packages\\telegram.bot\\19.0.0\\telegram.bot.19.0.0.nupkg.sha512"
+    "C:\\Users\\mak-s\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\mak-s\\.nuget\\packages\\telegram.bot\\19.0.0\\telegram.bot.19.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -21,16 +21,25 @@ namespace tinkovv_bot
             var message = update.Message;
             if(message.Text != null)
             {
-                if(message.Text.ToLower().Contains("добваить расходы"))
+                if(message.Text.ToLower().Contains("добавить расход"))
                 {
-                    await botClient.SendTextMessageAsync(message.Chat.Id, "//добваднеие расхода");
+                    await botClient.SendTextMessageAsync(message.Chat.Id, "//добавить расход");
                     return;
                 }
-                else if(message.Text.ToLower().Contains("добавить доходы"))
+                else if(message.Text.ToLower().Contains("добавить доход"))
                 {
-                    await botClient.SendTextMessageAsync(message.Chat.Id, "//добавление дохода");
+                    await botClient.SendTextMessageAsync(message.Chat.Id, "//добавить доход");
                     return;
                 }
+                else
+                {
+                    await botClient.SendTextMessageAsync(message.Chat.Id, "Введена неизвестная команда \nКоманды: \nДобавить Доход \nДобавить расход");
+                    return;
+                }
+            }
+            else
+            {
+                await botClient.SendTextMessageAsync(message.Chat.Id, "Введена неизвестная команда \nКоманды: \nДобавить Доход \nДобавить расход");
             }
         }
     }
