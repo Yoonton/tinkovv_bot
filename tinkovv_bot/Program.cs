@@ -3,15 +3,17 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+
 namespace tinkovv_bot
 {
     internal class Program
     {
+        Cost cost = new Cost();
         static void Main(string[] args)
         {
             var client = new TelegramBotClient("6878733229:AAGOk_4FkCvRmDSY1anMdyFSJfaK9FLkOrU");
             client.StartReceiving(Update, Error);
-            Console.ReadLine();
+            Console.ReadLine(); 
         }
         private static async void Bot_OnMessage(object sender, CallbackQuery e)
         {
@@ -27,7 +29,6 @@ namespace tinkovv_bot
         }
         async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
-            Console.WriteLine(update.Message.Text);
             var inlineKeyboard = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton[]>()
             {
@@ -60,6 +61,7 @@ namespace tinkovv_bot
                                         {
                                             await botClient.SendTextMessageAsync(chat.Id,"Сервис учета личных расходов");
                                             await botClient.SendTextMessageAsync(chat.Id,"Выберите пункт меню",replyMarkup: inlineKeyboard);
+                                            Console.WriteLine(chat.Id);
                                         }
                                         else
                                         {
