@@ -22,16 +22,17 @@
             Income income = new Income(date, sum);
             costsIncome.Add(income);
         }
-        public int AmountOfExpenses(DateTime dateTime, string category)
+        public int AmountOfExpenses(DateTime dateTime0, DateTime dateTime1, string category)
         {
             int sum = 0;
             foreach (Expenses expenses in costsExpenses)
             {
-                if (category == expenses.Category && )
+                if (category == expenses.Category && dateTime0 < expenses.Date && expenses.Date < dateTime1)
                 {
-
+                    sum += expenses.Sum;
                 }
             }
+            return sum;
         }
         public struct Expenses
         {
