@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using System;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -11,16 +12,35 @@ namespace tinkovv_bot
             var client = new TelegramBotClient("6878733229:AAGOk_4FkCvRmDSY1anMdyFSJfaK9FLkOrU");
             client.StartReceiving(Update, Error);
             Console.ReadLine();
-
         }
-
+        private static async void Bot_OnMessage(object sender, CallbackQuery e)
+        {
+            if (e.Message.Text != null)
+            {
+                long chatId = e.Message.Chat.Id;
+                string messageText = e.Message.Text;
+            }
+        }
         private static Task Error(ITelegramBotClient client, Exception exception, CancellationToken token)
         {
             throw new NotImplementedException();
         }
-
         async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
+            var inlineKeyboard = new InlineKeyboardMarkup(
+            new List<InlineKeyboardButton[]>()
+            {
+                new InlineKeyboardButton[]
+                {
+                    InlineKeyboardButton.WithCallbackData("Добавить доход", "button1"),
+                    InlineKeyboardButton.WithCallbackData("Добавить расход", "button2"),
+                },
+                new InlineKeyboardButton[]
+                {
+                    InlineKeyboardButton.WithCallbackData("Вывсти доход", "button3"),
+                    InlineKeyboardButton.WithCallbackData("Вывести расход", "button4"),
+                },
+            });
             try
             {
                 switch (update.Type)
@@ -37,28 +57,12 @@ namespace tinkovv_bot
                                     {
                                         if (message.Text == "/start")
                                         {
-                                            await botClient.SendTextMessageAsync(
-                                                chat.Id,
-                                                "Сервис учета личных расходов");
-                                            var inlineKeyboard = new InlineKeyboardMarkup(
-                                            new List<InlineKeyboardButton[]>()
-                                            {
-
-                                                new InlineKeyboardButton[]
-                                                {
-                                                    InlineKeyboardButton.WithCallbackData("Добавить доход", "button1"),
-                                                    InlineKeyboardButton.WithCallbackData("Добавить расход", "button2"),
-                                                },
-                                                new InlineKeyboardButton[]
-                                                {
-                                                    InlineKeyboardButton.WithCallbackData("Вывсти доход", "button3"),
-                                                    InlineKeyboardButton.WithCallbackData("Вывести расход", "button4"),
-                                                },
-                                            });
-                                            await botClient.SendTextMessageAsync(
-                                                chat.Id,
-                                                "Выберите пункт меню",
-                                                replyMarkup: inlineKeyboard);
+                                            await botClient.SendTextMessageAsync(chat.Id,"Сервис учета личных расходов");
+                                            await botClient.SendTextMessageAsync(chat.Id,"Выберите пункт меню",replyMarkup: inlineKeyboard);
+                                        }
+                                        else
+                                        {
+                                            await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                         }
                                         return;
                                     }
@@ -84,13 +88,15 @@ namespace tinkovv_bot
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
                                         await botClient.SendTextMessageAsync(chat.Id, "!доход!");
+                                        await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                         return;
                                     }
 
                                 case "button2":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(chat.Id, "Введите ");
+                                        await botClient.SendTextMessageAsync(chat.Id, "!расход!");
+                                        await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                         return;
                                     }
 
@@ -98,12 +104,14 @@ namespace tinkovv_bot
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
                                         await botClient.SendTextMessageAsync(chat.Id, "!вывод дохода!");
+                                        await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                         return;
                                     }
                                 case "button4":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(chat.Id, "!вывод расхода");
+                                        await botClient.SendTextMessageAsync(chat.Id, "!вывод расхода!");
+                                        await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                         return;
                                     }
                             }
