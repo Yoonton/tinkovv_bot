@@ -9,11 +9,12 @@ namespace tinkovv_bot
     internal class Program
     {
         public static Dictionary<long, string> currentState = new Dictionary<long, string>();
+        public static Cost cost = new Cost();
         static void Main(string[] args)
         {
             var client = new TelegramBotClient("6878733229:AAGOk_4FkCvRmDSY1anMdyFSJfaK9FLkOrU");
             client.StartReceiving(Update, Error);
-            Console.ReadLine(); 
+            Console.ReadLine();
         }
         private static Task Error(ITelegramBotClient client, Exception exception, CancellationToken token)
         {
@@ -21,6 +22,10 @@ namespace tinkovv_bot
         }
         async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
+            if (update.Message != null)
+            {
+                Console.WriteLine(update.Message.Text);
+            }
             var inlineKeyboard = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton[]>()
             {
@@ -51,10 +56,105 @@ namespace tinkovv_bot
                                     {
                                         if (message.Text == "/start" || currentState[user.Id] == "start")
                                         {
-                                            await botClient.SendTextMessageAsync(chat.Id,"Сервис учета личных расходов");
-                                            await botClient.SendTextMessageAsync(chat.Id,"Выберите пункт меню",replyMarkup: inlineKeyboard);
+                                            await botClient.SendTextMessageAsync(chat.Id, "Сервис учета личных расходов");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                             currentState[user.Id] = "start";
                                             Console.WriteLine(chat.Id);
+                                        }
+                                        else if (currentState[user.Id] == "Income")
+                                        {
+                                            await botClient.SendTextMessageAsync(chat.Id, "Введите сумму пополнения");
+                                            if (update.Message != null && InputValidator.IsNumeric(update.Message.Text))
+                                            {
+                                                currentState[user.Id] = "IncomeDateAdd";
+                                            }
+                                            else
+                                            {
+                                                await botClient.SendTextMessageAsync(chat.Id, "Введены не корректные данные. Введите еще раз");
+                                                currentState[user.Id] = "IncomeSumAdd";
+                                            }
+
+                                            currentState[user.Id] = "start";
+                                        }
+                                        else if (currentState[user.Id] == "Expenses")
+                                        {
+                                            await botClient.SendTextMessageAsync(chat.Id, "Введите сумму затрат");
+                                            if (update.Message != null && InputValidator.IsNumeric(update.Message.Text))
+                                            {
+                                                //запись затрат
+                                                currentState[user.Id] = "ExpensesDateAdd";
+                                            }
+                                            else
+                                            {
+                                                currentState[user.Id] = "ExpensesSumAdd";
+                                                await botClient.SendTextMessageAsync(chat.Id, "Введены не корректные данные. Введите еще раз");
+                                            }
+                                        }
+                                        else if (currentState[user.Id] == "IncomeOut")
+                                        {
+                                            //добавить две кнопки(за все ввремя\за период)
+                                        }
+                                        else if (currentState[user.Id] == "ExpensesOut")
+                                        {
+                                            //добавить 3 кнопки(за все время\по категория\за период)
+                                        }
+                                        else if (currentState[user.Id] == "IncomeSumAdd")
+                                        {
+                                            await botClient.SendTextMessageAsync(chat.Id, "Введите сумму пополнения");
+                                            if (update.Message != null && InputValidator.IsNumeric(update.Message.Text))
+                                            {
+                                                //запись суммы
+                                                currentState[user.Id] = "IncomeDateAdd";
+                                            }
+                                            else
+                                            {
+                                                await botClient.SendTextMessageAsync(chat.Id, "Введены не корректные данные. Введите еще раз");
+                                            }
+                                        }
+                                        else if (currentState[user.Id] == "ExpensesSumAdd")
+                                        {
+                                            await botClient.SendTextMessageAsync(chat.Id, "Введите сумму затарт");
+                                            if (update.Message != null && InputValidator.IsNumeric(update.Message.Text))
+                                            {
+                                                //добавление затрат
+                                                currentState[user.Id] = "ExpensesDateAdd";
+                                            }
+                                            else
+                                            {
+                                                await botClient.SendTextMessageAsync(chat.Id, "Введены не корректные данные. Введите еще раз");
+                                            }
+                                        }
+                                        else if (currentState[user.Id] == "IncomeDateAdd")
+                                        {
+                                            await botClient.SendTextMessageAsync(chat.Id, "Введите дату пополнения");
+                                            if (update.Message != null && InputValidator.IsNumeric(update.Message.Text))
+                                            {
+                                                //добавление даты пополнения
+                                                currentState[user.Id] = "start";
+                                            }
+                                            else
+                                            {
+                                                await botClient.SendTextMessageAsync(chat.Id, "Введены не корректные данные. Введите еще раз");
+                                            }
+                                        }
+                                        else if (currentState[user.Id] == "ExpensesDateAdd")
+                                        {
+                                            await botClient.SendTextMessageAsync(chat.Id, "Введите дату затрат");
+                                            if (update.Message != null && InputValidator.IsNumeric(update.Message.Text))
+                                            {
+                                                //добавление даты затрат
+                                                currentState[user.Id] = "ExpensesCategoryAdd";
+                                            }
+                                            else
+                                            {
+                                                await botClient.SendTextMessageAsync(chat.Id, "Введены не корректные данные. Введите еще раз");
+                                            }
+                                        }
+                                        else if (currentState[user.Id] == "ExpensesCategoryAdd")
+                                        {
+                                            //добавление категории трат
+                                            await botClient.SendTextMessageAsync(chat.Id, "Введите категорию траты");
+                                            currentState[user.Id] = "start";
                                         }
                                         else
                                         {
@@ -63,6 +163,7 @@ namespace tinkovv_bot
                                                 await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                             }
                                         }
+
                                         return;
                                     }
                                 default:
@@ -137,39 +238,6 @@ namespace tinkovv_bot
                                         }
                                         break;
                                     }
-                            }
-                            switch(currentState[user.Id])
-                            {
-                                case "Income":
-                                    await botClient.SendTextMessageAsync(chat.Id, "Введите сумму пополнения");
-                                    Console.WriteLine(update.Message);
-                                    if (update.Message != null)
-                                    {
-                                        currentState[user.Id] = "IncomeSumAdd";
-                                        Console.WriteLine("aboba");
-                                    }
-                                    else if(update.Message != null)
-                                    {
-                                        await botClient.SendTextMessageAsync(chat.Id, "Введены не корректные данные. Введите еще раз");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("хуйня");
-                                    }
-                                    break;
-                                case "Expenses":
-                                    Console.WriteLine("2");
-                                    break;
-                                case "IncomeOut":
-                                    Console.WriteLine("3");
-                                    break;
-                                case "ExpensesOut":
-                                    Console.WriteLine("4");
-                                    break;
-                                default:
-                                    Console.WriteLine(currentState[user.Id]);
-                                    Console.WriteLine(user.Id);
-                                    break;
                             }
                             return;
                         }
