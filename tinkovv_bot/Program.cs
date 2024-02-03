@@ -8,20 +8,12 @@ namespace tinkovv_bot
 {
     internal class Program
     {
-        Cost cost = new Cost();
+        public static Dictionary<long, string> currentState = new Dictionary<long, string>();
         static void Main(string[] args)
         {
             var client = new TelegramBotClient("6878733229:AAGOk_4FkCvRmDSY1anMdyFSJfaK9FLkOrU");
             client.StartReceiving(Update, Error);
             Console.ReadLine(); 
-        }
-        private static async void Bot_OnMessage(object sender, CallbackQuery e)
-        {
-            if (e.Message.Text != null)
-            {
-                long chatId = e.Message.Chat.Id;
-                string messageText = e.Message.Text;
-            }
         }
         private static Task Error(ITelegramBotClient client, Exception exception, CancellationToken token)
         {
@@ -57,15 +49,19 @@ namespace tinkovv_bot
                             {
                                 case MessageType.Text:
                                     {
-                                        if (message.Text == "/start")
+                                        if (message.Text == "/start" || currentState[user.Id] == "start")
                                         {
                                             await botClient.SendTextMessageAsync(chat.Id,"Сервис учета личных расходов");
                                             await botClient.SendTextMessageAsync(chat.Id,"Выберите пункт меню",replyMarkup: inlineKeyboard);
+                                            currentState[user.Id] = "start";
                                             Console.WriteLine(chat.Id);
                                         }
                                         else
                                         {
-                                            await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
+                                            if (currentState[user.Id] == "start")
+                                            {
+                                                await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
+                                            }
                                         }
                                         return;
                                     }
@@ -90,35 +86,91 @@ namespace tinkovv_bot
                                 case "button1":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(chat.Id, "!доход!");
-                                        await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
-                                        return;
+                                        if (currentState.ContainsKey(user.Id))
+                                        {
+                                            currentState[user.Id] = "Income";
+                                        }
+                                        else
+                                        {
+                                            currentState.Add(user.Id, "Income");
+                                        }
+                                        break;
                                     }
 
                                 case "button2":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(chat.Id, "!расход!");
-                                        await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
-                                        return;
+                                        if (currentState.ContainsKey(user.Id))
+                                        {
+                                            currentState[user.Id] = "Expenses";
+                                        }
+                                        else
+                                        {
+                                            currentState.Add(user.Id, "Expenses");
+                                        }
+                                        break;
                                     }
 
                                 case "button3":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(chat.Id, "!вывод дохода!");
-                                        await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
-                                        return;
+                                        if (currentState.ContainsKey(user.Id))
+                                        {
+                                            currentState[user.Id] = "IncomeOut";
+                                        }
+                                        else
+                                        {
+                                            currentState.Add(user.Id, "IncomeOut");
+                                        }
+                                        break;
                                     }
                                 case "button4":
                                     {
                                         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
-                                        await botClient.SendTextMessageAsync(chat.Id, "!вывод расхода!");
-                                        await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
-                                        return;
+                                        if (currentState.ContainsKey(user.Id))
+                                        {
+                                            currentState[user.Id] = "ExpensesOut";
+                                        }
+                                        else
+                                        {
+                                            currentState.Add(user.Id, "ExpensesOut");
+                                        }
+                                        break;
                                     }
                             }
-
+                            switch(currentState[user.Id])
+                            {
+                                case "Income":
+                                    await botClient.SendTextMessageAsync(chat.Id, "Введите сумму пополнения");
+                                    Console.WriteLine(update.Message);
+                                    if (update.Message != null)
+                                    {
+                                        currentState[user.Id] = "IncomeSumAdd";
+                                        Console.WriteLine("aboba");
+                                    }
+                                    else if(update.Message != null)
+                                    {
+                                        await botClient.SendTextMessageAsync(chat.Id, "Введены не корректные данные. Введите еще раз");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("хуйня");
+                                    }
+                                    break;
+                                case "Expenses":
+                                    Console.WriteLine("2");
+                                    break;
+                                case "IncomeOut":
+                                    Console.WriteLine("3");
+                                    break;
+                                case "ExpensesOut":
+                                    Console.WriteLine("4");
+                                    break;
+                                default:
+                                    Console.WriteLine(currentState[user.Id]);
+                                    Console.WriteLine(user.Id);
+                                    break;
+                            }
                             return;
                         }
                 }
