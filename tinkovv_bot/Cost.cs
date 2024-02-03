@@ -34,6 +34,18 @@
             }
             return sum;
         }
+        public int AmountOfIncome(DateTime dateTime0, DateTime dateTime1)
+        {
+            int sum = 0;
+            foreach (Income income in costsIncome)
+            {
+                if (dateTime0 < income.Date && income.Date < dateTime1)
+                {
+                    sum += income.Sum;
+                }
+            }
+            return sum;
+        }
         public struct Expenses
         {
             private DateTime date;
