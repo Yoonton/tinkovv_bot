@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace tinkovv_bot
+﻿namespace tinkovv_bot
 {
-    internal class Cost
+    public class Cost
     {
-
+        private struct Expenses
+        {
+            private DateTime date;
+            private string category;
+            private int sum;
+            int asd;
+        }
     }
 }

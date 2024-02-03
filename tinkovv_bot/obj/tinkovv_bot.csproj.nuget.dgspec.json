@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mak-s\\OneDrive\\Документы\\tg_bot\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj": {}
+    "C:\\Users\\Gachonom\\source\\repos\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mak-s\\OneDrive\\Документы\\tg_bot\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj": {
+    "C:\\Users\\Gachonom\\source\\repos\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mak-s\\OneDrive\\Документы\\tg_bot\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj",
+        "projectUniqueName": "C:\\Users\\Gachonom\\source\\repos\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj",
         "projectName": "tinkovv_bot",
-        "projectPath": "C:\\Users\\mak-s\\OneDrive\\Документы\\tg_bot\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj",
-        "packagesPath": "C:\\Users\\mak-s\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mak-s\\OneDrive\\Документы\\tg_bot\\tinkovv_bot\\tinkovv_bot\\obj\\",
+        "projectPath": "C:\\Users\\Gachonom\\source\\repos\\tinkovv_bot\\tinkovv_bot\\tinkovv_bot.csproj",
+        "packagesPath": "C:\\Users\\Gachonom\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Gachonom\\source\\repos\\tinkovv_bot\\tinkovv_bot\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mak-s\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Gachonom\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,9 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "default"
         }
       },
       "frameworks": {
@@ -61,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.7.23376.3\\RuntimeIdentifierGraph.json"
         }
       }
     }
