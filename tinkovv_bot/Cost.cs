@@ -5,29 +5,50 @@
         private List<Expenses> costsExpenses = new List<Expenses>();
         private List<Income> costsIncome = new List<Income>();
         public List<Expenses> CostsExpenses
-        { 
+        {
             get { return costsExpenses; }
         }
         public List<Income> CostsIncome
         {
             get { return costsIncome; }
         }
-        public void AddToListExpenses(DateTime date, string category, int sum)
+        public void AddToListExpenses()
         {
-            Expenses expenses = new Expenses(date, category, sum);
+            Expenses expenses = new Expenses(DateTime.Today, "", 0);
             costsExpenses.Add(expenses);
         }
-        public void AddToListIncome(DateTime date, int sum)
+        public void AddToListIncome()
         {
-            Income income = new Income(date, sum);
+            Income income = new Income(DateTime.Today, 0);
             costsIncome.Add(income);
         }
-        public int AmountOfExpenses(DateTime dateTime0, DateTime dateTime1, string category)
+        public int AmountOfExpenses(DateTime dateTime0, DateTime dateTime1)
         {
             int sum = 0;
             foreach (Expenses expenses in costsExpenses)
             {
-                if (category == expenses.Category && dateTime0 < expenses.Date && expenses.Date < dateTime1)
+                if (dateTime0 <= expenses.Date && expenses.Date <= dateTime1)
+                {
+                    sum += expenses.Sum;
+                }
+            }
+            return sum;
+        }
+        public int AmountOfExpenses()
+        {
+            int sum = 0;
+            foreach (Expenses expenses in costsExpenses)
+            {
+                sum += expenses.Sum;
+            }
+            return sum;
+        }
+        public int AmountOfExpenses(string category)
+        {
+            int sum = 0;
+            foreach (Expenses expenses in costsExpenses)
+            {
+                if (category == expenses.Category)
                 {
                     sum += expenses.Sum;
                 }
@@ -39,10 +60,19 @@
             int sum = 0;
             foreach (Income income in costsIncome)
             {
-                if (dateTime0 < income.Date && income.Date < dateTime1)
+                if (dateTime0 <= income.Date && income.Date <= dateTime1)
                 {
                     sum += income.Sum;
                 }
+            }
+            return sum;
+        }
+        public int AmountOfIncome()
+        {
+            int sum = 0;
+            foreach (Income income in costsIncome)
+            {
+                sum += income.Sum;
             }
             return sum;
         }
