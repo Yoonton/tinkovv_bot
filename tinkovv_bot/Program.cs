@@ -58,6 +58,7 @@ namespace tinkovv_bot
                 new InlineKeyboardButton[]
                 {
                     InlineKeyboardButton.WithCallbackData("Вывести сумму по категориям", "categoryButton"),
+                    InlineKeyboardButton.WithCallbackData("Сводка по категориям", "categoryButton3"),
                 },
 
             });
@@ -95,7 +96,7 @@ namespace tinkovv_bot
                             {
                                 userWallet.Add(update.Message.From.Id, new Cost());
                             }
-                            Console.WriteLine("aboba 1 case");
+                           // Console.WriteLine("aboba 1 case");
                             var message = update.Message;
                             var user = message.From;
                             Console.WriteLine($"{user.FirstName}    |    {message.Text}");
@@ -129,7 +130,7 @@ namespace tinkovv_bot
                                         using var client1 = new RestClient(url);
 
                                         client1.AddDefaultHeader("Content-Type", "application/json");
-                                        client1.AddDefaultHeader("Authorization", "Bearer ya29.c.c0AY_VpZjd9dPQxWKiMMp_VDo3FdCRxLnCJd6FiZVxoXlCskDRo_HkGWDhH5DYIW2b2meEOBzZ68AovT2f0EPzXjdWCkb0lHtugMVo8fTkbSR8K07Gk2RV6Cgmmgn_tPzQ4yQ8MCxeiXF2-sUrlEBQ8T7LTGYWrFsfffFx4ZrQTIQcoFPqeOFnwVr-HPAlQrmTs2zfEmNC3F1NRk-DWBp6waAIXOgAnML4001ui-gpu9OtpXaysaDHwrm3lD6diL3JWcDzVcq-cKoUb3X3fTEK86gkO5UPMDbh3fIHwXx7Y14kfiBx17lWCp66QwGJYYlli5oo1ek33thQ0rkAmZoQmPzvNj17CvY-nkT_DaO0Wwqp6up_5kyQjatPH385AucgabBJ5BpBia0BQFQsc0dqv0U6kqSjW60kbQyol6udwxgU5Jr3WeRcVlXwfMeJQacgBB84a04paotzebO8g0gBUq4dtf1xY2j1SyR1MbMrtuXiu9q57eRbBRMZkwSJWhvJ3w8tqQoR4yMMfly9wIIRcIV_fq-bJe40IFpXlwV_hj9fkOJs2089iUQua3x7yueIIb5oxert3u10okWbfll1Uk_q2d5kaaBwacqFMmUuZe433x0XnS3Ztph4FSZmf4Mznk244aW__o0IqQ8WeJMqzMSoXam8fybj_npfX9npdmc3nxurlUym9oFnUnJmqfkuwB1aJwZcvuR6l2zSJvl72WyaBbkk3uZ54nUsfMi2JUpvs4aBp0ghIJayIkrV3wMkg_aeOmBhb8vY7xvQSxs5it2VyX6puFqa0OojwIVBcI9h-enYpn-jcb5B_32x_y9nomvhl9kuU_5MbkXWzJ7q_Qy_c1R79cs44USsvbIUmdVUh_3Qg2j_Q19wSrbbgZhqtVMMeSalpX_wkUiwmr6BQVVZF--XoRVa3XW06vey0bgg3sMSwiXrB5k_2JwBQ1ha7wS_8uMhWx8n58O4nmcFgrQxIRyp72inoRSblxI6RZ5BVrcJk71-vVv");
+                                        client1.AddDefaultHeader("Authorization", "Bearer ya29.c.c0AY_VpZhSRjCYi2TN6yprsyTwrmdcDj1GlBPtWlqcIKpeY5faas5C8N16TNWnirQxfIimu88__me6BWWfM605pLKnryqpTKZNdCyKkCAiIlOZfvGo4Gy1M2rBkaMzmyy6Y-kHwNlrQ4Q1ctoc6dClLKzuqZ6flkoaWjv6pXFwogQzxYsQiw7iTWRyNwe0ti6InJKcNJa0_ndogN6XZBp4ryxZR438I7GhCkwioUCnihd2kh3d5t3nMlY1C_DnQkOFMCqlBxEbJ2o-YHeDB6zG2fg5lETz-BgQaMsVKj01PY1-V_a44GiUgDKsU4cnOVWHJLUZV_d8jvWWlnGB-LX5d45dq_rhXvmU6A1QwK593Fyww0XHdE6lR3gT384Aih206asOj5qbZ5F9r-xuFBmxFqkbhMU_SbJjzedbnn7vzW92Vf8Mtgm1nxa-1hpUb1dYBm6z6e-FeRYm2VIwxpgqeI98rvZFJzysFgdghiUVMbuelMIfjJ47zn7f1k-6i0e5miR2s5zgetd74h5ybMRVglQUUyfgt5M7yZVxgnoh78o94zm_ifwe5pXWzxgue0krViZYp_YFYqvvVkynb3SYcxJqkrFocXReeWj2MeeIqrwq7mjiXq4QhQ-_splZpq4peuttXirwUV1ByvIIU_laqa_qbqapcp0jeJ3_W72c1jF7qZRJfv_pbd2aFF63x-8V31RaF9Z879fwvY_QR55h5V47vJ0_qUMcXh8VmkVv7I9qkR_rpu__bpdMtrZa_sVFbyFb_pjnsbBlXbclt4OSJ5M7lW2-Sps7ch3Sc5YlyepZOdFjV-y7rgw1VYwpiZIwBlorvOsWu47Jp2xRXpap1Jsudl51Fuufv3Wy4lOdS_lcFrr8pWvbjuvVwQdRh4QuwbZnuJXbawYh2IFJ1b6ysWBtsgMmQsB2YJ96vovFQ2obzm7pvcVb1659Ud_JUWxV7zvJwu44WqomBlMdqQX6BjgJzn29WhoczXzJYBqts2J266qVrt9ZxVM");
                                         client1.AddDefaultHeader("x-goog-user-project", "hack-in-come-mfmj");
 
                                         var req = new RestRequest("/");
@@ -141,38 +142,49 @@ namespace tinkovv_bot
                                         if (json.queryResult.queryText == null)
                                         {
                                             await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                             break;
                                         }
                                         if (json.queryResult.parameters.trxType == null)
                                         {
-                                            await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение, вот что я получил:");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
+                                            await botClient.SendTextMessageAsync(chat.Id, json.queryResult.queryText);
                                             break;
                                         }
                                         if (json.queryResult.parameters.number == null)
                                         {
-                                            await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение, вот что я получил:");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
+                                            await botClient.SendTextMessageAsync(chat.Id, json.queryResult.queryText);
                                             break;
                                         }
                                         if (json.queryResult.parameters.dateTime == null)
                                         {
-                                            await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение, вот что я получил:");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
+                                            await botClient.SendTextMessageAsync(chat.Id, json.queryResult.queryText);
                                             break;
                                         }
                                         if (json.queryResult.parameters.category == null)
                                         {
-                                            await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение");
+                                            await botClient.SendTextMessageAsync(chat.Id, "Повтори сообщение, вот что я получил:");
+                                           await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
+                                            await botClient.SendTextMessageAsync(chat.Id, json.queryResult.queryText);
                                             break;
                                         }
                                         if (json.queryResult.parameters.trxType == "outcome")
                                         {
-                                            userWallet[user.Id].AddToListIncome();
-                                            userWallet[user.Id].CostsIncome[^1] = new Cost.Income(Converter.StringToDate(json.queryResult.parameters.dateTime), json.queryResult.parameters.number);
+                                            userWallet[user.Id].AddToListExpenses();
+                                            await botClient.SendTextMessageAsync(chat.Id, $"Вы сказали: Дата - {json.queryResult.parameters.dateTime} \n Сумма - {json.queryResult.parameters.number.ToString()} \n Категория - {json.queryResult.parameters.category}");
+                                            userWallet[user.Id].CostsExpenses[^1] = new Cost.Expenses(Converter.StringToDate(json.queryResult.parameters.dateTime), json.queryResult.parameters.category, json.queryResult.parameters.number);
                                             await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                         }
                                         else if (json.queryResult.parameters.trxType == "income")
                                         {
-                                            userWallet[user.Id].AddToListExpenses();
-                                            userWallet[user.Id].CostsExpenses[^1] = new Cost.Expenses(Converter.StringToDate(json.queryResult.parameters.dateTime),json.queryResult.parameters.category , json.queryResult.parameters.number);
+                                            await botClient.SendTextMessageAsync(chat.Id, $"Вы сказали: Дата - {json.queryResult.parameters.dateTime} \n Сумма - {json.queryResult.parameters.number.ToString()} \n Категория - {json.queryResult.parameters.category}");
+                                            userWallet[user.Id].AddToListIncome();
+                                            userWallet[user.Id].CostsIncome[^1] = new Cost.Income(Converter.StringToDate(json.queryResult.parameters.dateTime), json.queryResult.parameters.number);
                                             await botClient.SendTextMessageAsync(chat.Id, "Выберите пункт меню", replyMarkup: inlineKeyboard);
                                         }
                                     }
@@ -375,7 +387,7 @@ namespace tinkovv_bot
                     case UpdateType.CallbackQuery:
                         {
 
-                            Console.WriteLine("aboba case 2");
+                           // Console.WriteLine("aboba case 2");
                             var callbackQuery = update.CallbackQuery;
                             var user = callbackQuery.From;
                             Console.WriteLine($"{user.FirstName}    |    {callbackQuery.Data}");
@@ -478,6 +490,10 @@ namespace tinkovv_bot
                                     await botClient.DeleteMessageAsync(chat.Id, update.CallbackQuery.Message.MessageId, token);
                                     await botClient.SendTextMessageAsync(chat.Id, "Введите промежуток дат через тире");
                                     currentState[user.Id] = "waitingDate2";
+                                    break;
+                                case "categoryButton3":
+                                    await botClient.SendTextMessageAsync(chat.Id, PrintInfo.DictionaryToString(PrintInfo.ListOfExpenses(userWallet[user.Id])));
+                                    await botClient.DeleteMessageAsync(chat.Id, update.CallbackQuery.Message.MessageId, token);
                                     break;
                             }
                             break;

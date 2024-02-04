@@ -1,6 +1,6 @@
 ﻿namespace tinkovv_bot
 {
-    internal class PrintInfo
+    internal static class PrintInfo
     {
         public static Dictionary<string, int> ListOfExpenses(Cost cost)
         {
